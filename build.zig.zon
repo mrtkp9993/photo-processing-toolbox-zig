@@ -36,6 +36,10 @@
             .url = "git+https://github.com/sam701/zig-cli#036341c48b32ef355274d66461551772fc1f202d",
             .hash = "cli-0.11.0-2eKe_6sIAQB1njsE9sfrNvd2HxmQej13ebo-D3kBuFX3",
         },
+        .zigimg = .{
+            .url = "git+https://github.com/zigimg/zigimg.git#0bbe201a5591219177f2444371c2897746b47774",
+            .hash = "zigimg-0.1.0-8_eo2sGbFwCrsBjkTTP-kinCH62m5vmYDHQnQcngFuwh",
+        },
     },
     .paths = .{
         "build.zig",

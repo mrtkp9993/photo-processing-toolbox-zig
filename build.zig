@@ -6,11 +6,21 @@ pub fn build(b: *std.Build) void {
 
     // deps
     const cli_dep = b.dependency("cli", .{});
+    const zigimg_dependency = b.dependency("zigimg", .{
+        .target = target,
+        .optimize = optimize,
+    });
 
     const shared_mod = b.addModule("photo_processing_toolbox_zig", .{
         .root_source_file = b.path("src/root.zig"),
         .target = target,
         .optimize = optimize,
+        .imports = &.{
+            .{
+                .name = "zigimg",
+                .module = zigimg_dependency.module("zigimg"),
+            },
+        },
     });
 
     const shared_lib = b.addLibrary(.{
@@ -28,6 +38,7 @@ pub fn build(b: *std.Build) void {
         .shared_mod = shared_mod,
     });
     pixelsort.root_module.addImport("cli", cli_dep.module("cli"));
+    pixelsort.root_module.addImport("zigimg", zigimg_dependency.module("zigimg"));
 
     addRunStep(b, "run-psort", "Run pixelsort", pixelsort);
 
@@ -58,6 +69,7 @@ fn addTool(b: *std.Build, options: ToolOptions) *std.Build.Step.Compile {
                 },
             },
         }),
+        .use_llvm = true,
     });
 
     b.installArtifact(exe);
