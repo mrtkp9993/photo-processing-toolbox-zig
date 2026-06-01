@@ -42,9 +42,22 @@ pub fn build(b: *std.Build) void {
 
     addRunStep(b, "run-psort", "Run pixelsort", pixelsort);
 
+    const addborder = addTool(b, .{
+        .name = "addborder",
+        .source = "src/addborder.zig",
+        .target = target,
+        .optimize = optimize,
+        .shared_mod = shared_mod,
+    });
+    addborder.root_module.addImport("cli", cli_dep.module("cli"));
+    addborder.root_module.addImport("zigimg", zigimg_dependency.module("zigimg"));
+
+    addRunStep(b, "run-addborder", "Run addborder", addborder);
+
     const test_step = b.step("test", "Run tests");
     addTestStep(b, test_step, shared_mod);
     addTestStep(b, test_step, pixelsort.root_module);
+    addTestStep(b, test_step, addborder.root_module);
 }
 
 const ToolOptions = struct {
