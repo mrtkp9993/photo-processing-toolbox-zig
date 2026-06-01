@@ -32,7 +32,7 @@ pub fn build(b: *std.Build) void {
 
     const pixelsort = addTool(b, .{
         .name = "pixelsort",
-        .source = "src/pixel-sort.zig",
+        .source = "src/pixelsort.zig",
         .target = target,
         .optimize = optimize,
         .shared_mod = shared_mod,
