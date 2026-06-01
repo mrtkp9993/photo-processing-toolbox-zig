@@ -1,7 +1,7 @@
 const std = @import("std");
 const cli = @import("cli");
 const zigimg = @import("zigimg");
-const lib = @import("photo_processing_toolbox_zig");
+const lib = @import("pptzig");
 
 const SortBy = enum {
     hue,

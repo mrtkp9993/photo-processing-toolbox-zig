@@ -11,7 +11,7 @@ pub fn build(b: *std.Build) void {
         .optimize = optimize,
     });
 
-    const shared_mod = b.addModule("photo_processing_toolbox_zig", .{
+    const shared_mod = b.addModule("pptzig", .{
         .root_source_file = b.path("src/root.zig"),
         .target = target,
         .optimize = optimize,
@@ -24,7 +24,7 @@ pub fn build(b: *std.Build) void {
     });
 
     const shared_lib = b.addLibrary(.{
-        .name = "photo_processing_toolbox_zig",
+        .name = "pptzig",
         .linkage = .dynamic,
         .root_module = shared_mod,
     });
@@ -64,7 +64,7 @@ fn addTool(b: *std.Build, options: ToolOptions) *std.Build.Step.Compile {
             .optimize = options.optimize,
             .imports = &.{
                 .{
-                    .name = "photo_processing_toolbox_zig",
+                    .name = "pptzig",
                     .module = options.shared_mod,
                 },
             },
